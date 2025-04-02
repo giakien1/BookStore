@@ -36,12 +36,12 @@ class AuthController {
 
             // Tạo token JWT
             const token = jwt.sign(
-                { userId: user._id, role: user.role },
+                { userId: user._id.toString(), role: user.role },
                 process.env.JWT_SECRET || "my_secret_key",
                 { expiresIn: "7d" }
             );
 
-            res.status(200).json({ message: "Login successful", token });
+            res.status(200).json({ message: "Login successful", token, role: user.role });
         } catch (error) {
             res.status(500).json({ message: "Internal Server Error", error: error.message });
         }

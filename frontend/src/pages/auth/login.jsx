@@ -18,12 +18,21 @@ const Login = () => {
 
     try {
       const response = await api.post("/auth/login", formData);
-      const { token } = response.data;
+      console.log("API Response:", response.data); // In ra toàn bộ response để kiểm tra
+
+      const { token, role } = response.data;  // Đảm bảo response có token và role
       localStorage.setItem("token", token);
-      navigate("/");
-    } catch (err) {
-      setError(err.response?.data?.message || "Lỗi đăng nhập");
-    }
+      localStorage.setItem("role", role);  // Lưu role vào localStorage
+      console.log("Saved role to localStorage:", role);  // Kiểm tra giá trị role
+
+        if (role === "admin") {
+            navigate("/admin/home");
+        } else {
+            navigate("/");
+        }
+      } catch (err) {
+          setError(err.response?.data?.message || "Lỗi đăng nhập");
+      }
   };
 
   return (

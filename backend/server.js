@@ -5,7 +5,10 @@ const db = require("./config/db");
 const routes = require("./routes");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",  // Frontend origin
+  credentials: true,  // Enable cookies with requests
+}));
 app.use(express.json());
 
 routes(app);

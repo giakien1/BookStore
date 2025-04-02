@@ -4,15 +4,22 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+import AdminLayout from "./components/admin/adminLayout";
+
 import Author from "./pages/author/author";
 import AuthorDetail from "./pages/author/authorDetail";
-import Home from "./pages/home"; // Import trang Home
+import Home from "./pages/home"; 
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import Navbar from "./components/navbar";
 import AdminHome from "./pages/admin/adminHome";
-import Book from "./pages/book/book";
+import AdminBook from "./pages/admin/adminBook";
+import AdminAuthor from "./pages/admin/adminAuthor";
+import BookList from "./pages/book/bookList";
 import BookDetail from "./pages/book/bookDetail";
+import Me from "./pages/me";
+
+
 
 const App = () => {
   return (
@@ -21,17 +28,23 @@ const App = () => {
       <div className="container mt-4">
         <Routes>
           <Route path="/" element={<Home />} /> {/* Thêm route cho Home */}
-          
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
           <Route path="/author" element={<Author />} />
           <Route path="/author/:id" element={<AuthorDetail />} />
 
-          <Route path="/book" element={<Book />} />
+          <Route path="/book_list" element={<BookList />} />
           <Route path="/book/:id" element={<BookDetail />} />
 
-          <Route path="/admin/home" element={<AdminHome />} />
+          <Route path="/me" element={<Me />} />
+
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/home" element={<AdminHome />} />
+            <Route path="/admin/book" element={<AdminBook />} />
+            <Route path="/admin/author" element={<AdminAuthor />} />
+          </Route>
         </Routes>
       </div>
     </Router>
