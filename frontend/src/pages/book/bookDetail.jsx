@@ -33,7 +33,6 @@ const BookDetail = () => {
       <div className="card shadow-lg">
         <div className="card-body">
           <h2 className="text-center">{book.title}</h2>
-          <p className="text-muted text-center">📖 {book.status}</p>
           
           {book.image && (
             <div className="text-center">
@@ -45,6 +44,7 @@ const BookDetail = () => {
           <p><strong>🏢 Nhà xuất bản:</strong> {book.publisher?.name || "Không rõ"}</p>
           <p><strong>💰 Giá:</strong> {book.price ? `${book.price.toLocaleString()} VND` : "Không rõ"}</p>
           <p><strong>📖 Mô tả:</strong> {book.description || "Không có mô tả"}</p>
+          <p><strong>📖 Tình trạng:</strong> {book.status || "Không rõ"}</p>
 
           <h3 className="mt-4">📂 Thể loại</h3>
           {book.categories && book.categories.length > 0 ? (

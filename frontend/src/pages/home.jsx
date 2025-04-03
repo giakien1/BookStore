@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { api } from "../api"; // Import API đã cấu hình sẵn
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -48,7 +51,7 @@ const Home = () => {
                 </p>
                 <div className="mt-auto d-flex justify-content-between align-items-center">
                   <span className="fw-bold text-success">${book.price}</span>
-                  <button className="btn btn-primary btn-sm">View Details</button>
+                  <button className="btn btn-primary btn-sm" onClick={() => navigate(`/book/${book._id}`)}>View Details</button>
                 </div>
               </div>
             </div>

@@ -45,8 +45,8 @@ const AdminBookEdit = () => {
                 setPublishers(publishersRes.data);
 
                 setFormData({
-                    title: book.title,
-                    description: book.description,
+                    title: book.title || "",
+                    description: book.description || "",
                     author: book.author?._id || "",  // Dùng ObjectId
                     publisher: book.publisher?._id || "",  // Dùng ObjectId
                     price: book.price,

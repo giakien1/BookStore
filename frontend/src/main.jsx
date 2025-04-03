@@ -12,13 +12,18 @@ import Home from "./pages/home";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import Navbar from "./components/navbar";
+
 import AdminHome from "./pages/admin/adminHome";
 import AdminBook from "./pages/admin/adminBook/adminBook";
 import AdminBookEdit from "./pages/admin/adminBook/adminBookEdit";
-import AdminAuthor from "./pages/admin/adminAuthor";
+import AdminAuthor from "./pages/admin/adminAuthor/adminAuthor";
+import AdminAuthorEdit from "./pages/admin/adminAuthor/adminAuthorEdit";
+import AdminAuthorCreate from "./pages/admin/adminAuthor/adminAuthorCreate";
+
 import BookList from "./pages/book/bookList";
 import BookDetail from "./pages/book/bookDetail";
 import Me from "./pages/me";
+
 
 const App = () => {
   return (
@@ -46,6 +51,8 @@ const App = () => {
             <Route path="/admin/book/:bookId" element={<AdminBookEdit />} />
 
             <Route path="/admin/author" element={<AdminAuthor />} />
+            <Route path="/admin/author/:authorId" element={<AdminAuthorEdit />} />
+            <Route path="/admin/author/create" element={<AdminAuthorCreate />} />
           </Route>
         </Routes>
       </div>

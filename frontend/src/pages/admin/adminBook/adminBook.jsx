@@ -11,10 +11,10 @@ const AdminBook = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
 
-
     useEffect(()=> {
         const fetchBooks = async () => {
             try {
+
                 const response = await api.get("/book", {
                 headers: { Authorization: `Bearer ${token}` },
                 }); // Gọi API lấy danh sách books
@@ -50,8 +50,8 @@ const AdminBook = () => {
       } catch (error) {
           console.error("Delete failed:", error.response?.data || error.message);
           setError(error.response?.data?.message || "Failed to delete book.");
-      }
-  };
+        }
+    };
 
 
     if (loading) return <p className="text-center fw-bold">Loading...</p>;
