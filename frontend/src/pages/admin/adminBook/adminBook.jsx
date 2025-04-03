@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { api } from "../../api"; // API đã cấu hình sẵn
+import { api } from "../../../api"; // API đã cấu hình sẵn
+import { useNavigate } from "react-router-dom";
 
 const AdminBook = () => {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+
+
     useEffect(()=> {
         const fetchBooks = async () => {
             try {
-                const token = localStorage.getItem("token");
-
                 const response = await api.get("/book", {
                 headers: { Authorization: `Bearer ${token}` },
                 }); // Gọi API lấy danh sách books
 
                 setBooks(response.data);
-            } catch {
+            } catch(error) {
                 console.error("Error fetching books:", error); 
                 setError(error.response?.data?.message || "Failed to fetch books");
             } finally {
@@ -26,7 +29,30 @@ const AdminBook = () => {
         };
 
         fetchBooks();
-    }, []);
+    }, [token]); // Chạy lại khi bookId hoặc token thay đổi
+    
+
+    const handleDelete = async (bookId) => {
+      const confirmDelete = window.confirm("Are you sure you want to delete this book?");
+      if (!confirmDelete) return;
+
+      try {
+        
+          await api.delete(`/book/${bookId}`, {
+              headers: { Authorization: `Bearer ${token}` },
+          });
+
+          alert("Book deleted successfully!");
+          setBooks(books.filter(book => book._id !== bookId));
+
+          // Chuyển hướng về trang danh sách sách sau khi xóa thành công
+          navigate(`/admin/book`); // Quay về trang danh sách sách
+      } catch (error) {
+          console.error("Delete failed:", error.response?.data || error.message);
+          setError(error.response?.data?.message || "Failed to delete book.");
+      }
+  };
+
 
     if (loading) return <p className="text-center fw-bold">Loading...</p>;
     if (error) return <p className="text-center text-danger">Error: {error}</p>;
@@ -60,8 +86,8 @@ const AdminBook = () => {
                             <td>{book.publisher?.name}</td>
                             <td>{book.price}</td>
                             <td>
-                                <button className="btn btn-warning btn-sm me-2">Edit</button>
-                                <button className="btn btn-danger btn-sm">Delete</button>
+                                <button className="btn btn-warning btn-sm me-2" onClick={() => navigate(`/admin/book/${book._id}`)}>Edit</button>
+                                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(book._id)}>Delete</button>
                             </td>
                         </tr>
                       ))}

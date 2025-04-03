@@ -13,13 +13,12 @@ import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import Navbar from "./components/navbar";
 import AdminHome from "./pages/admin/adminHome";
-import AdminBook from "./pages/admin/adminBook";
+import AdminBook from "./pages/admin/adminBook/adminBook";
+import AdminBookEdit from "./pages/admin/adminBook/adminBookEdit";
 import AdminAuthor from "./pages/admin/adminAuthor";
 import BookList from "./pages/book/bookList";
 import BookDetail from "./pages/book/bookDetail";
 import Me from "./pages/me";
-
-
 
 const App = () => {
   return (
@@ -42,7 +41,10 @@ const App = () => {
 
           <Route element={<AdminLayout />}>
             <Route path="/admin/home" element={<AdminHome />} />
+
             <Route path="/admin/book" element={<AdminBook />} />
+            <Route path="/admin/book/:bookId" element={<AdminBookEdit />} />
+
             <Route path="/admin/author" element={<AdminAuthor />} />
           </Route>
         </Routes>
