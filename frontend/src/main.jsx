@@ -14,11 +14,17 @@ import Register from "./pages/auth/register";
 import Navbar from "./components/navbar";
 
 import AdminHome from "./pages/admin/adminHome";
+
 import AdminBook from "./pages/admin/adminBook/adminBook";
 import AdminBookEdit from "./pages/admin/adminBook/adminBookEdit";
+import AdminBookCreate from "./pages/admin/adminBook/adminBookCreate";
+
 import AdminAuthor from "./pages/admin/adminAuthor/adminAuthor";
 import AdminAuthorEdit from "./pages/admin/adminAuthor/adminAuthorEdit";
 import AdminAuthorCreate from "./pages/admin/adminAuthor/adminAuthorCreate";
+
+import AdminCategory from "./pages/admin/adminCategory/adminCategoryList";
+import AdminCategoryCreate from "./pages/admin/adminCategory/adminCategoryCreate";
 
 import BookList from "./pages/book/bookList";
 import BookDetail from "./pages/book/bookDetail";
@@ -47,8 +53,12 @@ const App = () => {
           <Route element={<AdminLayout />}>
             <Route path="/admin/home" element={<AdminHome />} />
 
+            <Route path="/admin/category" element={<AdminCategory />} />
+            <Route path="/admin/category/create" element={<AdminCategoryCreate />} />
+
             <Route path="/admin/book" element={<AdminBook />} />
             <Route path="/admin/book/:bookId" element={<AdminBookEdit />} />
+            <Route path="/admin/book/create" element={<AdminBookCreate />} />
 
             <Route path="/admin/author" element={<AdminAuthor />} />
             <Route path="/admin/author/:authorId" element={<AdminAuthorEdit />} />

@@ -21,6 +21,11 @@ const AdminSidebar = () => {
             Author Management
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="/admin/category" className="nav-link text-white">
+            Category Management
+          </Link>
+        </li>
       </ul>
     </div>
   );

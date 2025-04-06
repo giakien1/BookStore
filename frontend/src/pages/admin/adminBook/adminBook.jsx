@@ -60,7 +60,12 @@ const AdminBook = () => {
     return (
         <div className="d-flex">
             <div className="container py-4">
-              <h2 className="mb-4 text-center">User Management</h2>
+              <h2 className="mb-4 text-center">Book Management</h2>
+              <div className="mb-3 text-center">
+                    <button className="btn btn-primary" onClick={() => navigate("/admin/book/create")}>
+                        Add New Book
+                    </button>
+              </div>
                 <div className="table-responsive">
                   <table className="table table-bordered table-striped">
                     <thead className="table-dark">
@@ -79,7 +84,12 @@ const AdminBook = () => {
                       {books.map((book, index) => (
                         <tr key={book._id}>
                             <td>{index + 1}</td>
-                            <td></td>
+                            <td><img
+                              src={book.image}
+                              alt={book.title}
+                              style={{ width: "80px", height: "auto", objectFit: "cover" }}
+                            />
+                            </td>
                             <td>{book.title}</td>
                             <td>{book.description}</td>
                             <td>{book.author?.name}</td>

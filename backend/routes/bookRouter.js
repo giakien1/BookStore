@@ -8,7 +8,7 @@ router.get("/", bookController.index);
 router.get("/:id", bookController.getBookById);
 
 // Chỉ **admin** hoặc **publisher** mới có thể tạo sách
-router.post("/createBook", authenticateUser, authorizeRoles("admin", "publisher"), bookController.createBook);
+router.post("/create", authenticateUser, authorizeRoles("admin", "publisher"), bookController.createBook);
 
 // Chỉ admin hoặc publisher sở hữu sách mới có thể sửa/xóa sách
 router.put("/:id", authenticateUser, authorizePublisher, bookController.updateBook);
