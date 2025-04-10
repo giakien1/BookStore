@@ -6,12 +6,13 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import AdminLayout from "./components/admin/adminLayout";
 
-import Author from "./pages/author/author";
-import AuthorDetail from "./pages/author/authorDetail";
 import Home from "./pages/home"; 
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import Navbar from "./components/navbar";
+
+import Author from "./pages/author/author";
+import AuthorDetail from "./pages/author/authorDetail";
 
 import AdminHome from "./pages/admin/adminHome";
 
@@ -28,7 +29,11 @@ import AdminCategoryCreate from "./pages/admin/adminCategory/adminCategoryCreate
 
 import BookList from "./pages/book/bookList";
 import BookDetail from "./pages/book/bookDetail";
+
+import PublisherBooksList from "./pages/publisher/publisherBooksList";
+
 import Me from "./pages/me";
+import AdminUserCreate from "./pages/admin/adminUser/adminUserCreate";
 
 
 const App = () => {
@@ -48,10 +53,13 @@ const App = () => {
           <Route path="/book_list" element={<BookList />} />
           <Route path="/book/:id" element={<BookDetail />} />
 
+          <Route path="/publisher/books" element={<PublisherBooksList />} />
+
           <Route path="/me" element={<Me />} />
 
           <Route element={<AdminLayout />}>
             <Route path="/admin/home" element={<AdminHome />} />
+            <Route path="/admin/user/createUser" element={<AdminUserCreate />} />
 
             <Route path="/admin/category" element={<AdminCategory />} />
             <Route path="/admin/category/create" element={<AdminCategoryCreate />} />
@@ -63,6 +71,7 @@ const App = () => {
             <Route path="/admin/author" element={<AdminAuthor />} />
             <Route path="/admin/author/:authorId" element={<AdminAuthorEdit />} />
             <Route path="/admin/author/create" element={<AdminAuthorCreate />} />
+
           </Route>
         </Routes>
       </div>

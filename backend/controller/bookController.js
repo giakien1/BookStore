@@ -2,7 +2,6 @@ const Book = require("../models/book");
 const Author = require("../models/author");
 const Publisher = require("../models/publisher");
 const mongoose = require("mongoose");
-const Category = require("../models/category"); 
 
 
 class BookController {

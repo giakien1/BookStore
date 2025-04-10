@@ -17,8 +17,6 @@ const AdminAuthorCreate = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("token"); // Lấy token từ localStorage
 
-    console.log("Token đang gửi:", token);
-
     const handleChange = (e) => {
         setFormData({
             ...formData,
