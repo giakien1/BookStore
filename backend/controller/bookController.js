@@ -18,17 +18,28 @@ class BookController {
     // [POST] /book - Tạo sách mới
     createBook = async (req, res) => {
         try {
-            const { title, author, publisher, price, categories, image, description, status } = req.body;
+            const { title, author, price, categories, image, description, status } = req.body;
+            let { publisher } = req.body;
+
+            // Nếu người dùng là publisher, dùng ID của họ làm publisher
+            if (req.user.role === 'publisher') {
+                const publisherDoc = await Publisher.findOne({ user: req.user.userId });
+                if (!publisherDoc) return res.status(404).json({ message: "Publisher not found" });
+                publisher = publisherDoc._id;
+                console.log("Publisher ID from user:", publisher);
+            }
     
             if (!title || !author || !publisher || price === undefined || !image || !status) {
                 return res.status(400).json({ message: "Missing required fields" });
             }
     
-            // Kiểm tra sự tồn tại của author và publisher
-            const existingAuthor = await Author.findById(author);
+            // Kiểm tra sự tồn tại của publisher
             const existingPublisher = await Publisher.findById(publisher);
-            if (!existingAuthor) return res.status(404).json({ message: "Author not found" });
             if (!existingPublisher) return res.status(404).json({ message: "Publisher not found" });
+            
+            // Kiểm tra sự tồn tại của author
+            const existingAuthor = await Author.findById(author);
+            if (!existingAuthor) return res.status(404).json({ message: "Author not found" });
     
             // Kiểm tra sự tồn tại của categories
             const categoryIds = categories.map(category => new mongoose.Types.ObjectId(category));
@@ -41,8 +52,8 @@ class BookController {
             // Tạo sách mới
             const newBook = new Book({
                 title,
-                author: new mongoose.Types.ObjectId(author), // Convert author to ObjectId
-                publisher: new mongoose.Types.ObjectId(publisher), // Convert publisher to ObjectId
+                author: existingAuthor._id,
+                publisher: existingPublisher._id,
                 price,
                 categories: categoryIds,
                 image,

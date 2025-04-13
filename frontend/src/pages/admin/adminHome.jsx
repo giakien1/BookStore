@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { api } from "../../api"; // API đã cấu hình sẵn
+import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -36,6 +38,11 @@ const AdminHome = () => {
     <div className="d-flex">
         <div className="container py-4">
           <h2 className="mb-4 text-center">User Management</h2>
+          <div className="mb-3 text-center">
+                    <button className="btn btn-primary" onClick={() => navigate("/admin/user/createUser")}>
+                        Add New User
+                    </button>
+            </div>  
             <div className="table-responsive">
               <table className="table table-bordered table-striped">
                 <thead className="table-dark">

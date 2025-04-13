@@ -31,6 +31,7 @@ import BookList from "./pages/book/bookList";
 import BookDetail from "./pages/book/bookDetail";
 
 import PublisherBooksList from "./pages/publisher/publisherBooksList";
+import PublisherBookCreate from "./pages/publisher/publisherBookCreate";
 
 import Me from "./pages/me";
 import AdminUserCreate from "./pages/admin/adminUser/adminUserCreate";
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/book/:id" element={<BookDetail />} />
 
           <Route path="/publisher/books" element={<PublisherBooksList />} />
+          <Route path="/publisher/books/create" element={<PublisherBookCreate />} />
 
           <Route path="/me" element={<Me />} />
 
