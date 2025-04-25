@@ -26,7 +26,6 @@ class BookController {
                 const publisherDoc = await Publisher.findOne({ user: req.user.userId });
                 if (!publisherDoc) return res.status(404).json({ message: "Publisher not found" });
                 publisher = publisherDoc._id;
-                console.log("Publisher ID from user:", publisher);
             }
     
             if (!title || !author || !publisher || price === undefined || !image || !status) {

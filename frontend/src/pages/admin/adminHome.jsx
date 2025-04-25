@@ -31,6 +31,26 @@ const AdminHome = () => {
     fetchUsers();
   }, []);
 
+  const handleDelete = async(userId) =>{
+    const confirmDelete = window.confirm("Are you sure you want to delete this user ?");
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      await api.delete(`/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+
+    alert("User deleted successfully!");
+    setUsers(users.filter(user => user._id !== userId));
+
+    } catch {
+      console.error("Delete failed:", error.response?.data || error.message);
+        setError(error.response?.data?.message || "Failed to delete user.");
+    }
+  }
+
   if (loading) return <p className="text-center fw-bold">Loading...</p>;
   if (error) return <p className="text-center text-danger">Error: {error}</p>;
 
@@ -67,7 +87,7 @@ const AdminHome = () => {
                       </td>
                       <td>
                         <button className="btn btn-warning btn-sm me-2">Edit</button>
-                        <button className="btn btn-danger btn-sm">Delete</button>
+                        <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user._id)}>Delete</button>
                       </td>
                     </tr>
                   ))}

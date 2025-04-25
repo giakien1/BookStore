@@ -33,11 +33,10 @@ const AdminBook = () => {
     
 
     const handleDelete = async (bookId) => {
-      const confirmDelete = window.confirm("Are you sure you want to delete this book?");
+      const confirmDelete = window.confirm("Are you sure you want to delete this book ?");
       if (!confirmDelete) return;
 
       try {
-        
           await api.delete(`/book/${bookId}`, {
               headers: { Authorization: `Bearer ${token}` },
           });

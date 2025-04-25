@@ -19,6 +19,8 @@ const AdminAuthor = () => {
                 headers: { Authorization: `Bearer ${token}` },
                 }); // Gọi API lấy danh sách authors
 
+                console.log("Authors from API:", response.data);
+
                 setAuthors(response.data);
             } catch {
                 console.error("Error fetching authors:", error); 
@@ -37,12 +39,12 @@ const AdminAuthor = () => {
 
       try {
         
-          await api.delete(`/book/${authorId}`, {
+          await api.delete(`/author/${authorId}`, {
               headers: { Authorization: `Bearer ${token}` },
           });
 
           alert("Author deleted successfully!");
-          setBooks(author.filter(author => author._id !== authorId));
+          setAuthors(author.filter(author => author._id !== authorId));
 
           // Chuyển hướng về trang danh sách sách sau khi xóa thành công
           navigate(`/admin/author`); // Quay về trang danh sách sách

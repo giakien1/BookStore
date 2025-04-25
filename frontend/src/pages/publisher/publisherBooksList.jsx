@@ -57,26 +57,34 @@ const PublisherBooksList = () => {
             </tr>
           </thead>
           <tbody>
-            {books.map((book) => (
-              <tr key={book._id}>
-                <td>{book.title}</td>
-                <td>{book.description}</td>
-                <td className="text-end">
-                  <button
-                    className="btn btn-sm btn-outline-warning me-2"
-                    onClick={() => navigate(`/publisher/books/edit/${book._id}`)}
-                  >
-                    <i className="bi bi-pencil-square me-1"></i> Edit
-                  </button>
-                  <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => handleDelete(book._id)}
-                  >
-                    <i className="bi bi-trash me-1"></i> Delete
-                  </button>
+            {books.length === 0 ? (
+              <tr>
+                <td colSpan="3" className="text-center text-muted py-4">
+                  Không có sách nào được tìm thấy.
                 </td>
               </tr>
-            ))}
+            ) : (
+              books.map((book) => (
+                <tr key={book._id}>
+                  <td>{book.title}</td>
+                  <td>{book.description}</td>
+                  <td className="text-end">
+                    <button
+                      className="btn btn-sm btn-outline-warning me-2"
+                      onClick={() => navigate(`/publisher/books/edit/${book._id}`)}
+                    >
+                      <i className="bi bi-pencil-square me-1"></i> Edit
+                    </button>
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => handleDelete(book._id)}
+                    >
+                      <i className="bi bi-trash me-1"></i> Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
