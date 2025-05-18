@@ -6,13 +6,20 @@ class PublisherBooksController {
     // [GET] /publisher/books
     index = async (req, res) => {
         const publisher = await Publisher.findOne({ user: req.user.userId });
-        console.log("Current userId:", req.user.userId);
         if (!publisher) {
-            return res.status(404).json({ message: "Publisher not found for this user" });
+            return res.status(404).json({ message: "Publisher not found" });
         }
 
         const books = await Book.find({ publisher: publisher._id });
         return res.json({ books });
+    };
+
+    // [GET] /publisher/books/:id
+    show = async (req, res) => {
+        const book = await Book.findOne({ _id: req.params.id, user: req.user.userId });
+        if (!book) return res.status(404).json({ message: "Book not found" });
+      
+        res.json(book);
     };
 
     // [POST] /publisher/createBook
@@ -28,7 +35,7 @@ class PublisherBooksController {
             const existingAuthor = await Author.findById(author);
             if (!existingAuthor) return res.status(404).json({ message: "Author not found" });
     
-            const publisherDoc = await Publisher.findById(req.user.userId);
+            const publisherDoc = await Publisher.findOne({ user: req.user.userId });
             if (!publisherDoc) return res.status(404).json({ message: "Publisher not found" });
 
             // Kiểm tra sự tồn tại của categories
@@ -43,7 +50,7 @@ class PublisherBooksController {
             const newBook = new Book({
                 title,
                 author: new mongoose.Types.ObjectId(author), // Convert author to ObjectId
-                publisher: mongoose.Types.ObjectId(req.user.userId), 
+                publisher: publisherDoc._id,
                 price,
                 categories: categoryIds,
                 image,
@@ -68,7 +75,8 @@ class PublisherBooksController {
 
     // [PUT] /publisher/books/:id
     update = async (req, res) => {
-        const book = await Book.findOne({ _id: req.params.id, publisher: req.user.userId });
+        const book = await Book.findOne({ _id: req.params.id, publisher: req.user.publisherId });
+        console.log("book:", book);
         if (!book) return res.status(404).json({ message: "Book not found" });
       
         Object.assign(book, req.body);

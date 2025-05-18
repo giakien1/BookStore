@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Publisher = require("../models/publisher");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -34,16 +35,26 @@ class AuthController {
             const isMatch = await user.comparePassword(password);
             if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
 
-            // Tạo token JWT
+            const payload = {
+                userId: user._id.toString(),
+                role: user.role,
+            };
+
+            if (user.role === "publisher") {
+                const publisher = await Publisher.findOne({ user: user._id });
+                if (!publisher) return res.status(400).json({ message: "Publisher not found" });
+                payload.publisherId = publisher._id.toString();
+            }
+
             const token = jwt.sign(
-                { userId: user._id.toString(), role: user.role },
+                payload,
                 process.env.JWT_SECRET || "my_secret_key",
-                { expiresIn: "7d" }
+                { expiresIn: "1d" }
             );
 
             res.status(200).json({ message: "Login successful", token, role: user.role });
         } catch (error) {
-            res.status(500).json({ message: "Internal Server Error", error: error.message });
+            res.status(500).json({ message: "Internal Server Error at authController", error: error.message });
         }
     };
 }

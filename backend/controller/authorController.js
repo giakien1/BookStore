@@ -3,7 +3,15 @@ const Author = require("../models/author");
 class authorController{
     index = async (req, res) => {
         try {
-            const authors = await Author.find();
+            const authors = await Author.find()
+                .populate({
+                    path: "books",
+                    select: "image title price categories",
+                    populate: {
+                    path: "categories",
+                    select: "name" 
+                    }
+                });
             res.status(200).json(authors);
         } catch (error) {
             res.status(500).json({ message: "Internal Server Error", error });
@@ -28,7 +36,15 @@ class authorController{
 
     getAuthorById = async (req, res) => {
         try {
-            const author = await Author.findById(req.params.id);
+            const author = await Author.findById(req.params.id)
+                .populate({
+                    path: "books",
+                    select: "image title price categories",
+                    populate: {
+                    path: "categories",
+                    select: "name" 
+                    }
+                });
             if (!author) {
                 return res.status(404).json({ message: "Author not found" });
             }

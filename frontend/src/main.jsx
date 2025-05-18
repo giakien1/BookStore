@@ -32,6 +32,7 @@ import BookDetail from "./pages/book/bookDetail";
 
 import PublisherBooksList from "./pages/publisher/publisherBooksList";
 import PublisherBookCreate from "./pages/publisher/publisherBookCreate";
+import PublisherBookEdit from "./pages/publisher/publisherBookEdit";
 
 import Me from "./pages/me";
 import AdminUserCreate from "./pages/admin/adminUser/adminUserCreate";
@@ -43,7 +44,7 @@ const App = () => {
       <Navbar />
       <div className="container mt-4">
         <Routes>
-          <Route path="/" element={<Home />} /> {/* Thêm route cho Home */}
+          <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/book/:id" element={<BookDetail />} />
 
           <Route path="/publisher/books" element={<PublisherBooksList />} />
+          <Route path="/publisher/books/:id" element={<PublisherBookEdit />} />
           <Route path="/publisher/books/create" element={<PublisherBookCreate />} />
 
           <Route path="/me" element={<Me />} />

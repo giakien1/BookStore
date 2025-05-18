@@ -44,24 +44,22 @@ const Author = () => {
 
             <h3 className="mt-4">📚 Sách của {author.name}</h3>
             <ul className="list-group">
-                {Array.isArray(author.books) && author.books.length > 0 ? (
-                    author.books
-                    .filter(book => book && book._id) // Lọc dữ liệu lỗi
-                    .map(book => (
-                        <li key={book._id} className="list-group-item">
-                            <strong>{book.title || "Không có tiêu đề"}</strong> - 
-                            {book.categories && book.categories.length > 0 ? (
-                                book.categories.map(category => category.name).join(", ")
-                            ) : (
-                                "Không có thể loại"
-                            )}
-                        </li>
-                    ))
-                ) : (
-                    <p className="text-muted">Không có sách nào.</p>
-                )}
+            {Array.isArray(author.books) && author.books.length > 0 ? (
+            <ul className="list-group">
+              {author.books.map((book) => (
+                <li key={book._id} className="list-group-item">
+                  <strong>{book.title || "Không có tiêu đề"}</strong> -{" "}
+                  {book.categories && book.categories.length > 0
+                    ? book.categories.map((cat) => cat.name).join(", ")
+                    : "Không có thể loại"} -{" "}
+                  {book.price ? `${book.price.toLocaleString()} VND` : "Không rõ"}
+                </li>
+              ))}
             </ul>
-
+            ) : (
+              <p className="text-muted">Không có sách nào.</p>
+            )}
+            </ul>
         </div>
       </div>
     </div>

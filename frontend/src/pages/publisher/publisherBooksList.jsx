@@ -14,6 +14,8 @@ const PublisherBooksList = () => {
         const response = await api.get("/publisher/books", {
           headers: { Authorization: `Bearer ${token}` },
         });
+
+        console.log(response);
         setBooks(response.data.books || []);
       } catch (err) {
         setError(err.response?.data?.message || "Failed to fetch books");
@@ -51,8 +53,11 @@ const PublisherBooksList = () => {
         <table className="table table-striped table-hover align-middle shadow-sm">
           <thead className="table-dark">
             <tr>
+              <th>#</th>
+              <th>Image</th>
               <th>Title</th>
               <th>Description</th>
+              <th>Price</th>
               <th className="text-end">Actions</th>
             </tr>
           </thead>
@@ -64,14 +69,22 @@ const PublisherBooksList = () => {
                 </td>
               </tr>
             ) : (
-              books.map((book) => (
+              books.map((book, index) => (
                 <tr key={book._id}>
+                  <td>{index + 1}</td>
+                  <td><img
+                              src={book.image}
+                              alt={book.title}
+                              style={{ width: "80px", height: "auto", objectFit: "cover" }}
+                            />
+                  </td>
                   <td>{book.title}</td>
                   <td>{book.description}</td>
+                  <td>{book.price}</td>
                   <td className="text-end">
                     <button
                       className="btn btn-sm btn-outline-warning me-2"
-                      onClick={() => navigate(`/publisher/books/edit/${book._id}`)}
+                      onClick={() => navigate(`/publisher/books/${book._id}`)}
                     >
                       <i className="bi bi-pencil-square me-1"></i> Edit
                     </button>

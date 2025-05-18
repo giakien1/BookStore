@@ -20,15 +20,19 @@ const Login = () => {
       const response = await api.post("/auth/login", formData);
       console.log("API Response:", response.data); // In ra toàn bộ response để kiểm tra
 
-      const { token, role } = response.data;  // Đảm bảo response có token và role
+      const { token, role, publisher, user } = response.data;  // Đảm bảo response có token và role
+      
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);  // Lưu role vào localStorage
       console.log("Saved role to localStorage:", role);  // Kiểm tra giá trị role
 
         if (role === "admin") {
-            navigate("/admin/home");
+          navigate("/admin/home");
+        }
+        if (role === "publisher") {
+          navigate("/publisher/books");
         } else {
-            navigate("/");
+          navigate("/");
         }
       } catch (err) {
           setError(err.response?.data?.message || "Lỗi đăng nhập");
