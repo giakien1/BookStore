@@ -26,17 +26,20 @@ const Login = () => {
       localStorage.setItem("role", role);  // Lưu role vào localStorage
       console.log("Saved role to localStorage:", role);  // Kiểm tra giá trị role
 
-        if (role === "admin") {
+      switch (role) {
+        case "admin":
           navigate("/admin/home");
-        }
-        if (role === "publisher") {
+          break;
+        case "publisher":
           navigate("/publisher/books");
-        } else {
+          break;
+        default:
           navigate("/");
-        }
-      } catch (err) {
-          setError(err.response?.data?.message || "Lỗi đăng nhập");
+          break;
       }
+    } catch (err) {
+        setError(err.response?.data?.message || "Lỗi đăng nhập");
+    }
   };
 
   return (

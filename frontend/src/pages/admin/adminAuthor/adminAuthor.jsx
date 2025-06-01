@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { api } from "../../../api"; // API đã cấu hình sẵn
+import { api } from "../../../api"; 
 import { useNavigate } from "react-router-dom";
 
 const AdminAuthor = () => {
@@ -17,7 +17,7 @@ const AdminAuthor = () => {
 
                 const response = await api.get("/author", {
                 headers: { Authorization: `Bearer ${token}` },
-                }); // Gọi API lấy danh sách authors
+                }); 
 
                 console.log("Authors from API:", response.data);
 
@@ -34,7 +34,7 @@ const AdminAuthor = () => {
     }, [token]);
 
     const handleDelete = async (authorId) => {
-      const confirmDelete = window.confirm("Are you sure you want to delete this book?");
+      const confirmDelete = window.confirm("Are you sure you want to delete this author?");
       if (!confirmDelete) return;
 
       try {
@@ -71,6 +71,7 @@ const AdminAuthor = () => {
                     <thead className="table-dark">
                       <tr>
                         <th>#</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Bio</th>
                         <th>Nationality</th>
@@ -81,6 +82,17 @@ const AdminAuthor = () => {
                       {authors.map((author, index) => (
                         <tr key={author._id}>
                             <td>{index + 1}</td>
+                            <td>
+                              <img
+                                src={author.image}
+                                alt={author.name}
+                                style={{ width: "60px", height: "60px", objectFit: "cover" }}
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = "https://via.placeholder.com/60";
+                                }}
+                              />
+                            </td>
                             <td>{author.name}</td>
                             <td>{author.bio}</td>
                             <td>{author.nationality}</td>

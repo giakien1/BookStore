@@ -1,10 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import AdminLayout from "./components/admin/adminLayout";
+import AdminLayout from "./components/layouts/adminLayout";
 
 import Home from "./pages/home"; 
 import Login from "./pages/auth/login";
@@ -15,6 +15,9 @@ import Author from "./pages/author/author";
 import AuthorDetail from "./pages/author/authorDetail";
 
 import AdminHome from "./pages/admin/adminHome";
+
+import AdminUserCreate from "./pages/admin/adminUser/adminUserCreate";
+import AdminUserEdit from "./pages/admin/adminUser/adminUserEdit";
 
 import AdminBook from "./pages/admin/adminBook/adminBook";
 import AdminBookEdit from "./pages/admin/adminBook/adminBookEdit";
@@ -35,7 +38,6 @@ import PublisherBookCreate from "./pages/publisher/publisherBookCreate";
 import PublisherBookEdit from "./pages/publisher/publisherBookEdit";
 
 import Me from "./pages/me";
-import AdminUserCreate from "./pages/admin/adminUser/adminUserCreate";
 
 
 const App = () => {
@@ -64,6 +66,7 @@ const App = () => {
           <Route element={<AdminLayout />}>
             <Route path="/admin/home" element={<AdminHome />} />
             <Route path="/admin/user/createUser" element={<AdminUserCreate />} />
+            <Route path="/admin/user/editUser/:id" element={<AdminUserEdit />} />
 
             <Route path="/admin/category" element={<AdminCategory />} />
             <Route path="/admin/category/create" element={<AdminCategoryCreate />} />

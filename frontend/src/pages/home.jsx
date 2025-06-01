@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { api } from "../api"; // Import API đã cấu hình sẵn
+import { api } from "../api"; 
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
+
+import AuthorCarousel from "../components/authorCarousel";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -13,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await api.get("/"); // Sử dụng API đã cấu hình
+        const response = await api.get("/"); 
         setBooks(response.data);
       } catch (error) {
         setError(error.response?.data?.message || "Failed to fetch books");
@@ -30,6 +33,36 @@ const Home = () => {
 
   return (
     <div className="container py-4">
+      {/* Slide banner */}
+      <div id="bannerCarousel" className="carousel slide mb-5" data-bs-ride="carousel">
+        <div className="carousel-inner rounded shadow-sm">
+          <div className="carousel-item active">
+            <img src="https://theme.hstatic.net/200000343865/1001052087/14/ms_banner_img5.jpg?v=2074" className="d-block w-100" alt="Banner 1" />
+          </div>
+          <div className="carousel-item">
+            <img src="https://theme.hstatic.net/200000343865/1001052087/14/ms_banner_img3.jpg?v=2074" className="d-block w-100" alt="Banner 2" />
+          </div>
+          <div className="carousel-item">
+            <img src="https://theme.hstatic.net/200000343865/1001052087/14/ms_banner_img1.jpg?v=2074" className="d-block w-100" alt="Banner 3" />
+          </div>
+          <div className="carousel-item">
+            <img src="https://theme.hstatic.net/200000343865/1001052087/14/ms_banner_img4.jpg?v=2074" className="d-block w-100" alt="Banner 3" />
+          </div>
+        </div>
+        <button className="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      {/* Danh sách sách */}
+      <div className="container text-center my-5">
+        <h3 className="text-primary fw-bold">NEW BOOKS</h3>
+      </div>
       <div className="row">
         {books.map((book) => (
           <div key={book._id} className="col-md-4 col-lg-3 mb-4">
@@ -58,6 +91,11 @@ const Home = () => {
           </div>
         ))}
       </div>
+      <section className="author-section">
+        <AuthorCarousel />
+      </section>
+
+      <Footer />
     </div>
   );
 };

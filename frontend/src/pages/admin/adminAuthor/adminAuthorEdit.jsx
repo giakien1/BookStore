@@ -8,6 +8,7 @@ const AdminAuthorEdit = () => {
         bio: "",
         birthdate: "",
         nationality: "",
+        image: "",
     });
 
     const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const AdminAuthorEdit = () => {
 
     const { authorId } = useParams();
     const navigate = useNavigate();
-    const token = localStorage.getItem("token"); // Lấy token từ localStorage
+    const token = localStorage.getItem("token"); 
 
     useEffect(() => {
         if (!authorId) {
@@ -26,19 +27,18 @@ const AdminAuthorEdit = () => {
 
         const fetchData = async () => {
             try {
-                // Lấy thông tin sách
                 const authorResponse = await api.get(`/author/${authorId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
                 const author = authorResponse.data;
 
-                console.log("Author data:", author); // Kiểm tra dữ liệu trả về
+                console.log("Author data:", author); 
 
                 setFormData({
                     name: author.name || "",
                     bio: author.bio || "",  
-                    birthdate: author.birthdate ? author.birthdate.substring(0, 10) : "", // Chỉ lấy phần ngày tháng năm
+                    birthdate: author.birthdate ? author.birthdate.substring(0, 10) : "", 
                     nationality: author.nationality ?? "Unknown",
                 });
 
@@ -129,6 +129,24 @@ const AdminAuthorEdit = () => {
                         required
                     />
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="image" className="form-label">Image</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        value={formData.image}
+                        onChange={handleChange}
+                        className="form-control"
+                        required
+                    />
+                </div>
+                {/* Hiển thị ảnh xem trước nếu có URL */}
+                {formData.image && (
+                    <div className="mb-3 text-center">
+                        <img src={formData.image} alt="Preview" style={{ maxHeight: "200px", objectFit: "cover" }} />
+                    </div>
+                )}
                 <button type="submit" className="btn btn-primary">Update Author</button>
             </form>
         </div>

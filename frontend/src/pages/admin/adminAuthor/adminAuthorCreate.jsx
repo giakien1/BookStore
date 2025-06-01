@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../../api"; // API đã cấu hình sẵn
+import { api } from "../../../api"; 
 
 const AdminAuthorCreate = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +9,7 @@ const AdminAuthorCreate = () => {
         bio: "",
         birthdate: "",
         nationality: "",
+        image:"",
     });
 
     const [loading, setLoading] = useState(false);
@@ -104,6 +105,26 @@ const AdminAuthorCreate = () => {
                         required
                     />
                 </div>
+
+                <div className="mb-3">
+                    <label htmlFor="image" className="form-label">Image</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        value={formData.image}
+                        onChange={handleChange}
+                        className="form-control"
+                        required
+                    />
+                </div>
+
+                {/* Hiển thị ảnh xem trước nếu có URL */}
+                {formData.image && (
+                    <div className="mb-3 text-center">
+                        <img src={formData.image} alt="Preview" style={{ maxHeight: "200px", objectFit: "cover" }} />
+                    </div>
+                )}
 
                 <button type="submit" className="btn btn-success" disabled={loading}>
                     {loading ? "Creating..." : "Create Author"}

@@ -14,7 +14,7 @@ const mongoose = require("mongoose");
     
         const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : authHeader.split(" ")[1];
         if (!token) {
-        return res.status(401).json({ message: "Token không hợp lệ" });
+        return res.status(401).json({ message: "Bạn cần đăng nhập!" });
         }
 
         try {

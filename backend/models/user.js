@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    image: {
+        type: String, 
+        default: "https://t3.ftcdn.net/jpg/05/87/76/66/360_F_587766653_PkBNyGx7mQh9l1XXPtCAq1lBgOsLl6xH.jpg"
+    },
     role: { 
         type: String, 
         enum: ["admin", "user", "publisher"], 

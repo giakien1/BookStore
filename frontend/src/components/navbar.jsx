@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand text-danger fw-bold" to="/">
-          📚 MyBookStore
+          🔥 MyBookStore
         </Link>
         <button 
           className="navbar-toggler" 
@@ -23,11 +23,17 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link text-light" to="/">Home</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link text-light" to="/Author">Author</Link>
+            </li>
             <li>
               <Link className="nav-link text-light" to="/Login">Login</Link>
             </li>
             <li>
               <Link className="nav-link text-light" to="/Register">Register</Link>
+            </li>
+            <li>
+              <Link className="nav-link text-light" to="/Me">Profile</Link>
             </li>
             <li>
               <LogoutButton />

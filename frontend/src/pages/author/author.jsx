@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../../api"; // API đã cấu hình
+import { api } from "../../api"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Authors = () => {

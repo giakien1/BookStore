@@ -32,11 +32,11 @@ class userController {
 
       updateUser = async (req, res) => {
         try {
-          const { name, email, role } = req.body;
+          const { name, email, role, image } = req.body;
     
           const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
-            { name, email, role },
+            { name, email, role, image },
             { new: true, runValidators: true }
           ).select("-password");
     
@@ -69,7 +69,7 @@ class userController {
 
       createUser = async (req, res) => {
         try {
-          const { username, email, password, role } = req.body;
+          const { username, email, password, role, image } = req.body;
       
           const existingUser = await User.findOne({ email });
           if (existingUser) {

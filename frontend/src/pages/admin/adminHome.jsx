@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { api } from "../../api"; // API đã cấu hình sẵn
+import { api } from "../../api"; 
 import { useNavigate } from "react-router-dom";
 
 const AdminHome = () => {
@@ -86,7 +86,7 @@ const AdminHome = () => {
                         </span>
                       </td>
                       <td>
-                        <button className="btn btn-warning btn-sm me-2">Edit</button>
+                        <button className="btn btn-warning btn-sm me-2" onClick={() => navigate(`/admin/user/editUser/${user._id}`)}>Edit</button>
                         <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user._id)}>Delete</button>
                       </td>
                     </tr>

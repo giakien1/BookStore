@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"; // Để render các component con
-import AdminSidebar from "../../components/admin/adminSidebar"; // Sidebar quản trị viên
+import { Outlet } from "react-router-dom"; 
+import AdminSidebar from "../admin/adminSidebar"; 
 
 const AdminLayout = () => {
   const role = localStorage.getItem("role");
@@ -11,7 +11,7 @@ const AdminLayout = () => {
   return (
     <div className="d-flex">
       <AdminSidebar /> {/* Sidebar sẽ luôn hiển thị */}
-      <div className="container py-4">
+      <div className="container-fluid py-4" style={{ marginLeft: "250px" }}>
         <Outlet /> {/* Render các nội dung trang cụ thể ở đây */}
       </div>
     </div>

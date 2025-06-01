@@ -76,20 +76,21 @@ class PublisherBooksController {
     // [PUT] /publisher/books/:id
     update = async (req, res) => {
         const book = await Book.findOne({ _id: req.params.id, publisher: req.user.publisherId });
-        console.log("book:", book);
         if (!book) return res.status(404).json({ message: "Book not found" });
       
         Object.assign(book, req.body);
         await book.save();
-        res.json(book);
+        res.status(200).json({  message: "Book updated successfully" , book});
     };
 
     // [DELETE] /publisher/books/:id
     delete = async (req, res) => {
-        const result = await Book.findOneAndDelete({ _id: req.params.id, publisher: req.user.userId });
-        if (!result) return res.status(404).json({ message: "Book not found" });
-      
-        res.json({ message: "Book deleted" });
+        try{
+            const result = await Book.findOneAndDelete({ _id: req.params.id, publisher: req.user.publisherId });
+            return res.status(200).json({ message: "Book deleted successfully" });
+        } catch{
+            return res.status(404).json({ message: "Book not found" });
+        }
     };
 }
 

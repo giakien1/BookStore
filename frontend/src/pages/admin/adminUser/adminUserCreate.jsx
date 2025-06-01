@@ -8,6 +8,7 @@ const AdminUserCreate = () => {
         email: "",
         password: "",
         role: "",
+        image: "",
     });
 
     const [error, setError] = useState(null);
@@ -26,7 +27,7 @@ const AdminUserCreate = () => {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        console.log("Form data:", formData); // Log form data for debugging
+        console.log("Form data:", formData); 
 
         try {
             const response = await api.post("/user/create", formData, {
@@ -106,6 +107,26 @@ const AdminUserCreate = () => {
                     <option value="user">User</option>
                 </select>
                 </div>
+
+                <div className="mb-3">
+                    <label htmlFor="image" className="form-label">Image</label>
+                    <input
+                        type="text"
+                        id="image"
+                        name="image"
+                        value={formData.image}
+                        onChange={handleChange}
+                        className="form-control"
+                        required
+                    />
+                </div>
+
+                {/* Hiển thị ảnh xem trước nếu có URL */}
+                {formData.image && (
+                    <div className="mb-3 text-center">
+                        <img src={formData.image} alt="Preview" style={{ maxHeight: "200px", objectFit: "cover" }} />
+                    </div>
+                )}
 
                 <button type="submit" className="btn btn-success" disabled={loading}>
                     {loading ? "Creating..." : "Create User"}

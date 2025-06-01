@@ -6,7 +6,7 @@ const authorSchema = new mongoose.Schema({
     required: true,
     trim: true,
     unique: true,
-  },
+  }, 
   bio: {
     type: String,
     default: "",
@@ -16,6 +16,10 @@ const authorSchema = new mongoose.Schema({
   },
   nationality: {
     type: String,
+  },
+  image: {
+    type: String,
+    default: "https://t3.ftcdn.net/jpg/05/87/76/66/360_F_587766653_PkBNyGx7mQh9l1XXPtCAq1lBgOsLl6xH.jpg", // Default image URL
   },
   books: [{
     type: mongoose.Schema.Types.ObjectId,

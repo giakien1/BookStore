@@ -20,12 +20,12 @@ class authorController{
 
     createAuthor = async (req, res) => {
         try {
-            const { name, bio, birthdate, nationality } = req.body;
+            const { name, bio, birthdate, nationality, image } = req.body;
             if (!name) {
                 return res.status(400).json({ message: "Author name is required" });
             }
 
-            const newAuthor = new Author({ name, bio, birthdate, nationality });
+            const newAuthor = new Author({ name, bio, birthdate, nationality, image });
             await newAuthor.save();
     
             res.status(201).json({ message: "Author created successfully", author: newAuthor });
@@ -56,10 +56,10 @@ class authorController{
 
     updateAuthor = async (req, res) => {
         try {
-            const { name, bio, birthdate, nationality } = req.body;
+            const { name, bio, birthdate, nationality, image } = req.body;
             const updatedAuthor = await Author.findByIdAndUpdate(
                 req.params.id,
-                { name, bio, birthdate, nationality },
+                { name, bio, birthdate, nationality, image },
                 { new: true }
             );
     
